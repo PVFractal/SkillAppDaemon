@@ -3,21 +3,30 @@ using System.IO;
 using Npgsql;
 using System.Collections.Generic;
 
+/// <summary>
+/// Responsible for connecting to a postgresql database
+/// </summary>
 class SQLConnector
 {
 
     NpgsqlConnection connection;
 
+    /// <summary>
+    /// Constructor that initializes the connection field
+    /// </summary>
     public SQLConnector()
     {
         connection = new NpgsqlConnection();
     }
 
+    /// <summary>
+    /// Gives the connection field all it needs to connect to the database
+    /// </summary>
     public void MakeConnection()
     {
         StreamReader reader = new StreamReader(".env");
 
-        var nextLine = "";
+        string? nextLine;
         do
         {
             nextLine = reader.ReadLine();
@@ -60,6 +69,11 @@ class SQLConnector
 
         connection.ConnectionString = connStrBuilder.ConnectionString;
     }
+
+    /// <summary>
+    /// Gets the rows from the skills table, in the form of (<skill>, <time left before notification>)
+    /// </summary>
+    /// <returns>Returns the skills and their time left before notification</returns>
     public List<(string, long)> GetSkills()
     {
         var skillsList = new List<(string, long)>();
@@ -87,12 +101,17 @@ class SQLConnector
         return skillsList;
     }
 
+    /// <summary>
+    /// Resets the timer on the given skill
+    /// </summary>
+    /// <param name="skillsList">The skill to reset the timer on</param>
     public void ResetSkills(List<string> skillsList)
     {
         connection.Open();
 
         var unixTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
+        // The timer is reset by setting start_time to the current time
         var baseString = "UPDATE skills SET start_time = @start_time WHERE";
 
         var conditions = "";

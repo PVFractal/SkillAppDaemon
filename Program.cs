@@ -1,4 +1,6 @@
 ﻿using SkillAppDaemon;
+
+// 1000 milliseconds * 60 seconds = 1 minute wait time
 const int SLEEP_TIME = 1000 * 60;
 
 SQLConnector connector = new SQLConnector();
@@ -12,6 +14,7 @@ connector.MakeConnection();
 while (true)
 {
 
+    // Notifying the user if there are any skills to notify about
     var skills = connector.GetSkills();
 
     var skillsToUpdate = new List<string>();
@@ -30,10 +33,13 @@ while (true)
         }
     }
 
+    // Reseting the timers on those skills if they reached zero
+
     if (skillsToUpdate.Count > 0)
     {
         connector.ResetSkills(skillsToUpdate);
     }
 
+    // Making the program wait, so it is not constantly checking
     Thread.Sleep(SLEEP_TIME);
 }

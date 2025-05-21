@@ -26,3 +26,4 @@
 /Users/pvahlberg/Documents/DotNet Projects/SkillAppDaemon/bin/Debug/net9.0/runtimes/win-x64/native/WinRT.Runtime.dll
 /Users/pvahlberg/Documents/DotNet Projects/SkillAppDaemon/bin/Debug/net9.0/runtimes/win-x64/native/WindowsCommunityToolkit-License.md
 /Users/pvahlberg/Documents/DotNet Projects/SkillAppDaemon/bin/Debug/net9.0/runtimes/win-x64/native/WindowsNotification.dll
+/Users/pvahlberg/Documents/DotNet Projects/SkillAppDaemon/obj/Debug/net9.0/SkillAppDaemon.sourcelink.json
